@@ -12,7 +12,7 @@ import SwiftData
 
 struct JournalEntriesListView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var journalEntries:[JournalEntry]
+    @Query(sort:\JournalEntry.date, order: .reverse) private var journalEntries:[JournalEntry]
     
     @State var showCreateView = false
     
@@ -41,8 +41,8 @@ struct JournalEntriesListView: View {
         .toolbar {
             
             Button(action: {
-//                let newJournalEntry = JournalEntry(title: "Fun Day", text: "I am learning SwiftData", rating: 5, date:Date() )
-//                modelContext.insert(newJournalEntry)
+                let newJournalEntry = JournalEntry(title: "Fun Day", text: "I am learning SwiftData", rating: 5, date:Date() )
+                modelContext.insert(newJournalEntry)
                 showCreateView = true
                 
             }) {

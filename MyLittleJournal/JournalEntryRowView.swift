@@ -8,33 +8,33 @@
 import SwiftUI
 
 struct JournalEntryRowView: View {
-    
-    let rowJournalEntry: JournalEntry
+    let rowJournalEntry: JournalEntry // Assuming JournalEntry is a struct or class
+
     var body: some View {
-        VStack(alignment: .leading) {
-        HStack {
-            Text(rowJournalEntry.title)
-                .bold()
-            Text("-")
-            Text(rowJournalEntry.text)
-                .lineLimit(1)
-                .foregroundStyle(.secondary)
+        VStack(alignment: .leading){
+            HStack{
+                Text(rowJournalEntry.title)
+                    .bold()
+                Text("-")
+                Text(rowJournalEntry.text)
+                    .lineLimit(1)
+                    .foregroundStyle(.secondary)
+            }.padding(.bottom,1)
+            HStack{
+                Text(rowJournalEntry.date, style: .date)
+                    .foregroundStyle(.secondary)
+                Text(String(repeating: "⭐️", count: Int(rowJournalEntry.rating)))
+                
+            }
+            .font(.caption)
         }
-        .padding(.bottom, 1)
-        HStack {
-            Text(rowJournalEntry.date, style: .date)
-                .foregroundStyle(.secondary)
-            Text(String(repeating: "⭐️", count: Int(rowJournalEntry.rating)))
-          }
-        .font(.caption)
-        }
-      
     }
 }
 
-#Preview {
-    List {
-        JournalEntryRowView(rowJournalEntry: JournalEntry(title: "A Great Gold Day", text: "I found a nice pot of gold. I'm rich I tell ya", rating: 5, date: Date()))
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        List {
+            JournalEntryRowView(rowJournalEntry: JournalEntry(title: "Good day", text: "a very good day it was", rating: 5, date: Date()))
+        }
     }
-    
 }
