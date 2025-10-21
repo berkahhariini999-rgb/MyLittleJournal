@@ -8,11 +8,39 @@
 import SwiftUI
 
 struct EditJournalEntryView: View {
+    
+    @State var editingJournalEntry: JournalEntry
+    @State var editMode = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if editMode {
+            Form {
+                TextField("Title", text: $editingJournalEntry.title)
+                DatePicker("Date", selection: $editingJournalEntry.date, displayedComponents: .date)
+                Text(String(repeating: "⭐️", count: Int(editingJournalEntry.rating)))
+                Text("\(editingJournalEntry.rating)")
+                Slider(value: $editingJournalEntry.rating, in:1...5, step: 1)
+                TextEditor(text: $editingJournalEntry.text)
+            }
+            .navigationTitle("Edit Mode")
+                .toolbar {
+                    Button("Done"){
+                        editMode = false
+                    }
+                }
+        } else {
+            JournalEntryDetailView(detailJournalEntry: editingJournalEntry)
+                .toolbar {
+                    Button("Edit"){
+                        editMode = true
+                    }
+                }
+        }
     }
 }
 
 #Preview {
-    EditJournalEntryView()
+    NavigationStack {
+        EditJournalEntryView(editingJournalEntry: JournalEntry(title: "A Great Gold Day", text: "I found a nice pot of gold. I'm rich I tell ya", rating: 5, date: Date()))
+    }
+   
 }

@@ -30,7 +30,7 @@ struct JournalEntriesListView: View {
         NavigationStack {
         List(journalEntries){
             listedJournalEntry in
-            NavigationLink(destination:JournalEntryDetailView(detailJournalEntry: listedJournalEntry)){
+            NavigationLink(destination:EditJournalEntryView(editingJournalEntry:  listedJournalEntry)){
                 JournalEntryRowView(rowJournalEntry: listedJournalEntry)
 //                Text(listedJournalEntry.title)
 //                    .bold()
